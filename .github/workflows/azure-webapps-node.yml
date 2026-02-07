@@ -1,0 +1,22 @@
+const express = require("express");
+const app = express();
+
+// Security + performance basics
+app.disable("x-powered-by");
+app.use(express.json());
+
+const PORT = process.env.PORT || 3000;
+
+// Health check (Azure-friendly)
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
+// Main route
+app.get("/", (req, res) => {
+  res.send("🚀 Azure Node app running in production");
+});
+
+app.listen(PORT, () => {
+  console.log(`✅ Server live on port ${PORT}`);
+});
